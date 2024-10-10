@@ -22,18 +22,11 @@ router.post("/api/login", async (req, res) => {
       if (passwordResult) {
         // Create a new object with only the required fields
         const userResponse = {
-          username: user.username,
-          role: user.role,
-          modules: user.modules,
           first_name: user.first_name,
           middle_name: user.middle_name,
           last_name: user.last_name,
-          company: user.company,
-          employee_photo: user.employee_photo,
-          designation: user.designation,
-          department: user.department,
-          employment_type: user.employment_type,
-          email: user.email,
+          username: user.username,
+          role: user.role,
         };
 
         return res.status(200).json(userResponse);

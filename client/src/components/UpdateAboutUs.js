@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TextField, Button, Snackbar } from "@mui/material";
 import { useFormik } from "formik";
 import axios from "axios";
@@ -6,6 +6,20 @@ import { handleSingleFileUpload } from "../utils/awsSingleFileUpload";
 
 function UpdateAboutUs() {
   const [fileSnackbar, setFileSnackbar] = useState(false);
+
+  useEffect(() => {
+    async function getBannerData() {
+      const res = await axios("http://localhost:9000/api/get-data");
+      formik.setValues({
+        about_us_content: res.data.about_us_content || "",
+        about_us_bg: res.data.about_us_bg || "",
+        about_us_img: res.data.about_us_img || "",
+      });
+    }
+
+    getBannerData();
+    // eslint-disable-next-line
+  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -68,7 +82,7 @@ function UpdateAboutUs() {
           <div>
             <img
               src={formik.values.about_us_bg}
-              alt="Uploaded About Us"
+              alt="About Us"
               style={{ width: "100px", height: "100px" }}
             />
             <br />
@@ -102,7 +116,7 @@ function UpdateAboutUs() {
           <div>
             <img
               src={formik.values.about_us_img}
-              alt="Uploaded About Us"
+              alt="About Us"
               style={{ width: "100px", height: "100px" }}
             />
             <br />
